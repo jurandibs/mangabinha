@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<link rel="icon" type="image/png" href="assets/img/favicon.png"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mangabinha Locações - Aluguel de Equipamentos</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf9f9",
+                        "tertiary": "#5b5c5c",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#efeded",
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "surface-container-low": "#f5f3f3",
+                        "secondary-container": "#e2dfde",
+                        "on-surface": "#1b1c1c",
+                        "outline": "#817563",
+                        "surface-container-high": "#e9e8e7",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-primary-fixed": "#271900",
+                        "surface-variant": "#e4e2e2",
+                        "on-error-container": "#93000a",
+                        "secondary": "#5f5e5e",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-tertiary-container": "#fcfcfc",
+                        "primary-container": "#986d00",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#ffdea6",
+                        "surface-tint": "#7b5800",
+                        "inverse-on-surface": "#f2f0f0",
+                        "tertiary-container": "#737575",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary": "#785600",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface": "#fbf9f9",
+                        "on-secondary-fixed-variant": "#474746",
+                        "outline-variant": "#d3c4af",
+                        "surface-dim": "#dbdad9",
+                        "surface-bright": "#fbf9f9",
+                        "on-primary-fixed-variant": "#5d4200",
+                        "on-background": "#1b1c1c",
+                        "inverse-primary": "#f7bd48",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#303031",
+                        "primary-fixed-dim": "#f7bd48",
+                        "on-secondary-container": "#636262",
+                        "on-surface-variant": "#4f4535"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "48px",
+                        "margin": "32px",
+                        "gutter": "24px",
+                        "stack-sm": "8px",
+                        "container-max": "1280px",
+                        "unit": "8px",
+                        "stack-md": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-bold": ["Inter"],
+                        "headline-xl": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-bold": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Minimalist scrollbar for catalog */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Expandable Catalog Logic using Checkbox Hack for HTML-only execution */
+        #catalog-expand:checked ~ .expanded-grid {
+            display: grid;
+        }
+        #catalog-expand:checked ~ .expand-button-container {
+            display: none;
+        }
+    
+        /* Hide number input arrows */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield; /* Firefox */
+        }
+    </style>
+
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-white dark:bg-zinc-950 font-['Space_Grotesk'] uppercase tracking-wider text-sm sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800 w-full transition-all duration-100">
+<div class="flex justify-between items-center w-full px-8 py-5 max-w-7xl mx-auto">
+<!-- Brand Logo -->
+<div class="flex items-center gap-4">
+<img alt="Mangabinha Locações Logo" class="h-16 w-auto object-contain mix-blend-multiply" src="assets/img/logo.jpg"/>
+<a class="text-xl font-black text-zinc-900 dark:text-white uppercase tracking-tighter hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200 active:opacity-80" href="#">
+                    Mangabinha Locações
+                </a>
+</div>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-zinc-900 dark:text-white border-b-2 border-yellow-700 pb-1 font-bold hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200 active:opacity-80" href="#equipamentos">Equipamentos</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200 active:opacity-80" href="#equipamentos">Como Alugar</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200 active:opacity-80" href="#sobre-nos">Sobre Nós</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200 active:opacity-80" href="#contato">Contato</a>
+</div>
+<!-- Primary Action -->
+<div class="hidden md:block">
+<a class="inline-flex items-center justify-center px-6 py-3 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold tracking-widest hover:bg-yellow-700 dark:hover:bg-yellow-600 transition-colors duration-200 active:opacity-80" href="#equipamentos">
+                    Solicitar Orçamento
+                </a>
+</div>
+<!-- Mobile Menu Toggle (Visual Only) -->
+<button class="md:hidden text-zinc-900 dark:text-white p-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</nav>
+<!-- Hero Section -->
+<header class="relative w-full h-[819px] min-h-[600px] flex items-center bg-surface-container-highest">
+<!-- Background Image -->
+<div class="absolute inset-0 w-full h-full">
+<img alt="Construction Site Hero" class="w-full h-full object-cover object-center" data-alt="Wide shot of a modern construction site at dawn, heavy machinery silhouettes against a warm golden hour sky, industrial and professional atmosphere" src="assets/img/magabinha.png"/>
+<div class="absolute inset-0 bg-black/60"></div>
+</div>
+<!-- Content -->
+<div class="relative z-10 w-full max-w-container-max mx-auto px-margin">
+<div class="max-w-2xl">
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/90 backdrop-blur-sm border border-primary-fixed/30 mb-stack-md">
+<span class="w-2 h-2 rounded-full bg-primary-fixed animate-pulse"></span>
+<span class="font-label-bold text-label-bold text-on-primary">EQUIPAMENTOS DE ALTA PERFORMANCE</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-secondary mb-stack-md leading-tight">
+                    Força e Precisão para a sua Obra.
+                </h1>
+<p class="font-body-lg text-body-lg text-surface-variant mb-stack-lg max-w-xl">
+                    Locação de maquinário pesado e ferramentas industriais com manutenção rigorosa e entrega imediata. A base sólida que o seu projeto exige.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="inline-flex items-center justify-center px-8 py-4 bg-primary text-on-primary font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary-container hover:text-on-primary-container transition-colors duration-300" href="#equipamentos">
+                        Ver Catálogo Completo
+                        <span class="material-symbols-outlined ml-2 text-[20px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-on-secondary text-on-secondary font-label-bold text-label-bold uppercase tracking-wider hover:bg-on-secondary hover:text-on-background transition-colors duration-300" href="#contato">
+                        Falar com Consultor
+                    </a>
+</div>
+</div>
+</div>
+</header>
+<!-- About Section -->
+<section class="py-[120px] bg-background w-full" id="sobre-nos">
+<div class="max-w-container-max mx-auto px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-[80px] items-center">
+<!-- Image Grid -->
+<div class="relative grid grid-cols-2 gap-4 h-full min-h-[500px]">
+<img alt="Construção Civil" class="w-full h-full object-cover col-span-1 row-span-2 border border-surface-dim" src="assets/img/obra1.png"/>
+<img alt="Equipamentos na Obra" class="w-full h-full min-h-[242px] object-cover border border-surface-dim" src="assets/img/obra2.png"/>
+<img alt="Ferramentas Profissionais" class="w-full h-full min-h-[242px] object-cover border border-surface-dim" src="assets/img/obra3.png"/>
+</div>
+<!-- Text Content -->
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-stack-md">
+                        Compromisso com a Produtividade.
+                    </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-md">
+                        Na Mangabinha Locações, entendemos que tempo é o recurso mais valioso no canteiro de obras. Nosso parque de equipamentos é constantemente renovado e submetido a manutenções preventivas rigorosas.
+                    </p>
+<p class="font-body-md text-body-md text-secondary mb-stack-lg">
+                        Não somos apenas fornecedores; somos parceiros estratégicos na execução do seu projeto, garantindo que sua equipe tenha sempre a ferramenta certa, no momento exato, com máxima confiabilidade operacional.
+                    </p>
+<ul class="space-y-4">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="verified">verified</span>
+<div>
+<h3 class="font-label-bold text-label-bold text-on-background mb-1 uppercase">Manutenção Rigorosa</h3>
+<p class="font-body-md text-body-md text-secondary">Equipamentos testados antes de cada locação.</p>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="local_shipping">local_shipping</span>
+<div>
+<h3 class="font-label-bold text-label-bold text-on-background mb-1 uppercase">Logística Ágil</h3>
+<p class="font-body-md text-body-md text-secondary">Entrega e retirada pontuais diretamente na obra.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Expandable Catalog Section -->
+<section class="py-[120px] bg-surface-container-low w-full border-y border-surface-dim" id="equipamentos">
+<div class="max-w-container-max mx-auto px-margin">
+<!-- Section Header & Filters -->
+<div class="flex flex-col md:flex-row justify-between items-end mb-stack-lg gap-8">
+<div class="max-w-2xl">
+<span class="font-label-bold text-label-bold text-primary tracking-widest uppercase mb-4 block">Catálogo Técnico</span>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Maquinário Profissional</h2>
+</div>
+<!-- Search & Filter Controls -->
+<div class="w-full md:w-auto flex flex-col sm:flex-row gap-4">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-3 bg-surface border border-surface-dim focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-md text-body-md text-on-background transition-colors rounded-none" id="search-equipment" placeholder="Buscar equipamento..." type="text"/>
+</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 sm:pb-0">
+<button class="filter-btn active px-4 py-3 bg-on-background text-on-secondary font-label-bold text-label-bold uppercase whitespace-nowrap" data-filter="Todos">Todos</button>
+<button class="filter-btn px-4 py-3 bg-surface border border-surface-dim text-on-surface-variant font-label-bold text-label-bold uppercase whitespace-nowrap hover:border-primary transition-colors" data-filter="Betoneira">Betoneiras</button>
+<button class="filter-btn px-4 py-3 bg-surface border border-surface-dim text-on-surface-variant font-label-bold text-label-bold uppercase whitespace-nowrap hover:border-primary transition-colors" data-filter="Andaime">Andaimes</button>
+<button class="filter-btn px-4 py-3 bg-surface border border-surface-dim text-on-surface-variant font-label-bold text-label-bold uppercase whitespace-nowrap hover:border-primary transition-colors" data-filter="Martelete">Marteletes</button>
+</div>
+</div>
+</div>
+<!-- Initial Grid (8 Items) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Betoneira" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Betoneira.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Concreto</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Betoneira</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Martelete" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Martelete.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Demolição</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Martelete</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Andaime Tubular" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Andaimes.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Elevação</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Andaime Tubular</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Escoras Metálicas" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Escoras_Metalicas.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Escoramento</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Escoras Metálicas</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Escoras de Madeira" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Escoras_de_madeira.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Escoramento</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Escoras de Madeira</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Esmerilhadeira" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Esmerilhadeira.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Corte</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Esmerilhadeira</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Furadeira e Parafusadeira" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Furadeira_e_Parafusadeira.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Ferramentas</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Furadeira e Parafusadeira</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Lixadeira" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Lixadeira.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Acabamento</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Lixadeira</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- HTML-only Expandable Logic -->
+<input class="hidden" id="catalog-expand" type="checkbox"/>
+<!-- Expanded Grid (Hidden by default, shown via checkbox hack) -->
+<div class="expanded-grid hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Máquina de Solda" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Maquina_de_Solda.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Soldagem</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Máquina de Solda</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Motosserra" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Motosserra.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Corte</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Motosserra</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Máquina de Chapisco" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Máquina_de_Chapisco_e_Compressor.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Pintura</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Máquina de Chapisco</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Perfurador de Solo" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Perfurador_de_Solo.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Fundações</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Perfurador de Solo</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Plataformas" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Plataformas.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Elevação</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Plataformas</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Pulverizador de Tinta" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Pulverizador_Tinta.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Pintura</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Pulverizador de Tinta</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Serra Tico-Tico" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/Serra_Tico-Tico.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Corte</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Serra Tico-Tico</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border border-surface-dim group hover:border-primary transition-colors duration-300 flex flex-col h-full">
+<div class="relative h-64 p-4 bg-surface-container-highest flex items-center justify-center border-b border-surface-dim">
+<span class="absolute top-4 right-4 px-2 py-1 bg-surface text-on-surface font-label-sm text-label-sm border border-surface-dim uppercase">Disponível</span>
+<img alt="Serra Circular" class="max-w-full max-h-full object-contain mix-blend-multiply group-hover:scale-105 transition-transform duration-500" src="assets/img/serra.png"/>
+</div>
+<div class="p-6 flex flex-col flex-grow">
+<span class="font-label-sm text-label-sm text-secondary uppercase mb-2">Corte</span>
+<h3 class="font-headline-md text-[20px] leading-tight text-on-background mb-4">Serra Circular</h3>
+<div class="flex items-center justify-between gap-4 mt-auto pt-6">
+<div class="flex items-center border border-surface-dim h-12 w-32">
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-minus">-</button>
+<input class="w-full text-center bg-transparent border-none p-0 font-label-bold text-label-bold focus:ring-0 input-qty" min="0" type="number" value="0"/>
+<button type="button" class="px-3 text-secondary hover:text-on-background btn-plus">+</button>
+</div>
+<button class="btn-solicitar flex-1 h-12 bg-primary text-on-primary font-label-bold text-label-bold uppercase flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                                Solicitar
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More Button Container -->
+<div class="expand-button-container flex justify-center mt-12">
+<label class="cursor-pointer inline-flex items-center justify-center px-10 py-4 bg-transparent border-2 border-primary text-primary font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-all duration-300" for="catalog-expand">
+                    Ver Todos os Equipamentos
+                    <span class="material-symbols-outlined ml-2 text-[20px]" data-icon="expand_more">expand_more</span>
+</label>
+</div>
+</div>
+</section>
+<!-- Contact / Map Section -->
+<section class="py-[120px] bg-background w-full" id="contato">
+<div class="max-w-container-max mx-auto px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-[60px]">
+<!-- Contact Form & Info (Spans 5 cols) -->
+<div class="lg:col-span-5 flex flex-col justify-center">
+<span class="font-label-bold text-label-bold text-primary tracking-widest uppercase mb-4 block">Atendimento</span>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-stack-md">Faça sua Reserva.</h2>
+<p class="font-body-md text-body-md text-secondary mb-stack-lg">
+                        Preencha o formulário para cotações rápidas ou visite nossa central para atendimento imediato.
+                    </p>
+<form class="space-y-6 mb-stack-lg">
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant uppercase mb-2">Nome / Empresa</label>
+<input class="w-full bg-surface border-b-2 border-surface-dim focus:border-primary px-0 py-3 font-body-md text-on-background outline-none transition-colors rounded-none placeholder-secondary-fixed-dim" placeholder="Digite seu nome" type="text" id="nome-empresa"/>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant uppercase mb-2">Telefone (Opcional)</label>
+<input class="w-full bg-surface border-b-2 border-surface-dim focus:border-primary px-0 py-3 font-body-md text-on-background outline-none transition-colors rounded-none placeholder-secondary-fixed-dim" id="telefone" placeholder="(00) 00000-0000" type="tel"/>
+</div>
+
+</div>
+<button id="btn-enviar" class="w-full py-4 bg-on-background text-on-secondary font-label-bold text-label-bold uppercase tracking-wider hover:bg-primary transition-colors" type="button">
+                            Enviar Solicitação
+                        </button>
+</form>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 border-t border-surface-dim pt-8">
+<div>
+<h4 class="font-label-bold text-label-bold text-on-background uppercase mb-2">Endereço Base</h4>
+<p class="font-body-sm text-secondary">Rua José Simão de Andrade, S/N<br/>Bairro Sanharol<br/>Cel. João Sá, BA</p>
+</div>
+<div>
+<h4 class="font-label-bold text-label-bold text-on-background uppercase mb-2">Contato Direto</h4>
+<p class="font-body-sm text-secondary"><span class="break-all">mangabinnhamarmoresegranitos@gmail.com</span><br/>(79) 99994-8686</p>
+</div>
+</div>
+</div>
+<!-- Map (Spans 7 cols) -->
+<div class="lg:col-span-7 h-[600px] bg-surface-container-high border border-surface-dim relative">
+<iframe src="https://maps.google.com/maps?q=Mangabinha%20loca%C3%A7%C3%B5es,%20Cel.%20Jo%C3%A3o%20S%C3%A1%20-%20BA&t=&z=15&ie=UTF8&iwloc=&output=embed" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-zinc-100 dark:bg-zinc-900 w-full mt-auto border-t border-zinc-200 dark:border-zinc-800 transition-colors duration-200">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-8 py-10 max-w-7xl mx-auto gap-4">
+<div class="text-lg font-bold text-zinc-900 dark:text-white">
+                Mangabinha Locações
+            </div>
+<div class="flex flex-wrap justify-center gap-6">
+</div>
+<div class="font-['Inter'] text-xs tracking-normal text-zinc-500 dark:text-zinc-400 text-center md:text-right">
+                © 2026 <a href="https://portfoliojurandi.vercel.app" target="_blank" class="hover:text-primary transition-colors font-bold">JURANDIBS</a>. Todos os direitos reservados.
+            </div>
+</div>
+</footer>
+
+
+
+<script id="qty-script">
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.btn-minus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const input = e.target.nextElementSibling;
+            let val = parseInt(input.value) || 0;
+            if(val > 0) input.value = val - 1;
+        });
+    });
+    document.querySelectorAll('.btn-plus').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const input = e.target.previousElementSibling;
+            let val = parseInt(input.value) || 0;
+            input.value = val + 1;
+        });
+    });
+
+    // Search and Filter Logic
+    const searchInput = document.getElementById('search-equipment');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.group.hover\\:border-primary');
+
+    function filterCards() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const activeFilterBtn = document.querySelector('.filter-btn.active');
+        const activeFilter = activeFilterBtn ? activeFilterBtn.dataset.filter : 'Todos';
+
+        cards.forEach(card => {
+            const titleEl = card.querySelector('h3');
+            if(!titleEl) return;
+            const title = titleEl.textContent.toLowerCase();
+            const matchesSearch = title.includes(searchTerm);
+            const matchesFilter = activeFilter === 'Todos' || title.includes(activeFilter.toLowerCase());
+            
+            if (matchesSearch && matchesFilter) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    if (searchInput) searchInput.addEventListener('input', filterCards);
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => {
+                b.classList.remove('bg-on-background', 'text-on-secondary', 'active');
+                b.classList.add('bg-surface', 'text-on-surface-variant');
+            });
+            btn.classList.add('bg-on-background', 'text-on-secondary', 'active');
+            btn.classList.remove('bg-surface', 'text-on-surface-variant');
+            filterCards();
+        });
+    });
+
+    // Solicitar Logic
+    const btnSolicitarList = document.querySelectorAll('.btn-solicitar');
+    const nomeEmpresaInput = document.getElementById('nome-empresa');
+    const btnEnviar = document.getElementById('btn-enviar');
+
+    btnSolicitarList.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const contatoSection = document.getElementById('contato');
+            if(contatoSection) contatoSection.scrollIntoView({ behavior: 'smooth' });
+            
+            setTimeout(() => {
+                if(nomeEmpresaInput) {
+                    nomeEmpresaInput.focus();
+                    const originalBg = nomeEmpresaInput.style.backgroundColor;
+                    nomeEmpresaInput.style.transition = 'background-color 0.5s ease, box-shadow 0.5s ease';
+                    nomeEmpresaInput.style.backgroundColor = '#ffdea6';
+                    nomeEmpresaInput.style.boxShadow = '0 0 0 2px #785600';
+                    nomeEmpresaInput.placeholder = "Por favor, informe seu Nome ou Empresa";
+                    
+                    setTimeout(() => {
+                        nomeEmpresaInput.style.backgroundColor = originalBg || '';
+                        nomeEmpresaInput.style.boxShadow = 'none';
+                    }, 2000);
+                }
+
+                if(btnEnviar) {
+                    btnEnviar.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
+                    btnEnviar.style.transform = 'scale(1.05)';
+                    btnEnviar.style.boxShadow = '0 4px 15px rgba(120, 86, 0, 0.4)';
+                    
+                    setTimeout(() => {
+                        btnEnviar.style.transform = 'scale(1)';
+                        btnEnviar.style.boxShadow = 'none';
+                    }, 2000);
+                }
+            }, 600);
+        });
+    });
+
+
+    // WhatsApp Integration Logic
+    if (btnEnviar) {
+        btnEnviar.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const nome = nomeEmpresaInput ? nomeEmpresaInput.value.trim() : '';
+            const telefoneInput = document.getElementById('telefone');
+            const telefone = telefoneInput ? telefoneInput.value.trim() : '';
+            
+            if (!nome) {
+                alert('Por favor, informe seu Nome ou Empresa antes de enviar.');
+                nomeEmpresaInput.focus();
+                return;
+            }
+
+            // Gather selected items
+            const selectedItems = [];
+            document.querySelectorAll('.input-qty').forEach(input => {
+                const qty = parseInt(input.value) || 0;
+                if (qty > 0) {
+                    const card = input.closest('.group');
+                    if (card) {
+                        const titleEl = card.querySelector('h3');
+                        if (titleEl) {
+                            const title = titleEl.textContent.trim();
+                            selectedItems.push(`${qty}x ${title}`);
+                        }
+                    }
+                }
+            });
+
+            let message = "Olá! Gostaria de solicitar um orçamento para os seguintes itens:\n";
+            if (selectedItems.length > 0) {
+                selectedItems.forEach(item => {
+                    message += ` ${item}\n`;
+                });
+            } else {
+                message += " (Ainda não selecionei itens pelo catálogo)\n";
+            }
+            
+            message += "\nFico no aguardo!\n";
+            message += `${nome}`;
+            if (telefone) {
+                message += ` Tel: ${telefone}`;
+            }
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/557999948686?text=${encodedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+        });
+    }
+
+});
+</script>
+</body></html>
