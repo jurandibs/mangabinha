@@ -169,10 +169,20 @@
                     Solicitar Orçamento
                 </a>
 </div>
-<!-- Mobile Menu Toggle (Visual Only) -->
-<button class="md:hidden text-zinc-900 dark:text-white p-2">
-<span class="material-symbols-outlined" data-icon="menu">menu</span>
+<!-- Mobile Menu Toggle -->
+<button id="mobile-menu-btn" class="md:hidden text-zinc-900 dark:text-white p-2">
+<span id="mobile-menu-icon" class="material-symbols-outlined" data-icon="menu">menu</span>
 </button>
+</div>
+<!-- Mobile Menu Container -->
+<div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 flex-col items-center py-4 space-y-4 shadow-lg absolute w-full left-0 top-full">
+<a class="mobile-link text-zinc-900 dark:text-white font-bold hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200" href="#equipamentos">Equipamentos</a>
+<a class="mobile-link text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200" href="#equipamentos">Como Alugar</a>
+<a class="mobile-link text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200" href="#sobre-nos">Sobre Nós</a>
+<a class="mobile-link text-zinc-500 dark:text-zinc-400 font-medium hover:text-yellow-700 dark:hover:text-yellow-500 transition-colors duration-200" href="#contato">Contato</a>
+<a class="mobile-link inline-flex items-center justify-center px-6 py-3 mt-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-bold tracking-widest hover:bg-yellow-700 dark:hover:bg-yellow-600 transition-colors duration-200 w-3/4 max-w-xs" href="#equipamentos">
+                    Solicitar Orçamento
+                </a>
 </div>
 </nav>
 <!-- Hero Section -->
@@ -848,6 +858,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const whatsappUrl = `https://wa.me/557999948686?text=${encodedMessage}`;
             
             window.open(whatsappUrl, '_blank');
+        });
+    }
+
+    // Mobile Menu Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenuIcon = document.getElementById('mobile-menu-icon');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    if (mobileMenuBtn && mobileMenu) {
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenuIcon.textContent = 'menu';
+            } else {
+                mobileMenuIcon.textContent = 'close';
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
         });
     }
 
